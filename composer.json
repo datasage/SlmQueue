@@ -31,11 +31,8 @@
             "homepage": "http://www.roelvanduijnhoven.nl"
         }
     ],
-    "platform": {
-      "php": 8.1
-    },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-servicemanager": "^3.11 | ^4",
@@ -53,6 +50,11 @@
         "slm/queue-beanstalkd": "If you are using Beanstalk",
         "slm/queue-doctrine": "If you are using Doctrine ORM",
         "rnd-cosoft/slm-queue-rabbitmq": "If you are using RabbitMQ"
+    },
+    "config" : {
+      "platform": {
+        "php": "8.2.27"
+      }
     },
     "extra": {
         "branch-alias": {
