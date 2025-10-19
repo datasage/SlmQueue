@@ -55,6 +55,11 @@
       <code><![CDATA[AbstractQueue]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Queue/Exception/RuntimeException.php">
+    <UnusedClass>
+      <code><![CDATA[RuntimeException]]></code>
+    </UnusedClass>
+  </file>
   <file src="src/Queue/Exception/UnsupportedOperationException.php">
     <UnusedClass>
       <code><![CDATA[UnsupportedOperationException]]></code>
