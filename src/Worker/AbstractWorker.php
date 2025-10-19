@@ -32,6 +32,7 @@ abstract class AbstractWorker implements WorkerInterface
         $this->eventManager = $eventManager;
     }
 
+    #[\Override]
     public function processQueue(QueueInterface $queue, array $options = []): array
     {
         $this->eventManager->triggerEvent(new BootstrapEvent($this, $queue));

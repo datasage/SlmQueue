@@ -8,6 +8,7 @@ use SlmQueue\Queue\QueuePluginManager;
 
 class QueuePluginManagerFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): QueuePluginManager
     {
         $config = $container->get('config');

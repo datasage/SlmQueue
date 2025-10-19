@@ -10,6 +10,7 @@ use SlmQueue\Queue\QueuePluginManager;
 
 class QueueControllerPluginFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): QueuePlugin
     {
         $queuePluginManager = $container->get(QueuePluginManager::class);

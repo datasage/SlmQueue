@@ -10,6 +10,7 @@ use SlmQueue\Strategy\StrategyPluginManager;
 
 class AttachQueueListenersStrategyFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(
         ContainerInterface $container,
         $requestedName,

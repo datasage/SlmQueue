@@ -9,6 +9,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class QueuePluginManager extends AbstractPluginManager
 {
+    #[\Override]
     public function validate($instance): void
     {
         if ($instance instanceof QueueInterface) {

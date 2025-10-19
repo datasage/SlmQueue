@@ -9,6 +9,7 @@ use SlmQueue\Job\JobPluginManager;
 
 class JobPluginManagerFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): JobPluginManager
     {
         // We do not need to check if jobs is an empty array because every the JobPluginManager automatically
@@ -19,6 +20,7 @@ class JobPluginManagerFactory implements FactoryInterface
         return new JobPluginManager($container, $config);
     }
 
+    #[\Override]
     public function createService(ServiceLocatorInterface $serviceLocator): JobPluginManager
     {
         return $this($serviceLocator, JobPluginManager::class);

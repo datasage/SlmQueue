@@ -16,6 +16,7 @@ abstract class AbstractWorkerEvent extends Event implements WorkerEventInterface
         parent::__construct($name, $target);
     }
 
+    #[\Override]
     public function getWorker(): WorkerInterface
     {
         /** @var WorkerInterface $worker */

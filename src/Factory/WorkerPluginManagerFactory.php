@@ -8,6 +8,7 @@ use SlmQueue\Worker\WorkerPluginManager;
 
 class WorkerPluginManagerFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): WorkerPluginManager
     {
         $config = $container->get('config');

@@ -28,6 +28,7 @@ class JobPluginManager extends AbstractPluginManager
      * @param bool   $usePeeringServiceManagers
      * @return JobInterface
      */
+    #[\Override]
     public function get($name, $options = [], $usePeeringServiceManagers = true): JobInterface
     {
         // parent::get calls validate() so we're sure $instance is a JobInterface
@@ -40,6 +41,7 @@ class JobPluginManager extends AbstractPluginManager
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function validate($instance)
     {
         if ($instance instanceof JobInterface) {

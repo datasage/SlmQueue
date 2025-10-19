@@ -38,6 +38,7 @@ abstract class AbstractJob extends Message implements JobInterface
      */
     protected $content = null;
 
+    #[\Override]
     public function setId($id): JobInterface
     {
         $this->setMetadata('__id__', $id);
@@ -48,6 +49,7 @@ abstract class AbstractJob extends Message implements JobInterface
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function getId()
     {
         return $this->getMetadata('__id__');

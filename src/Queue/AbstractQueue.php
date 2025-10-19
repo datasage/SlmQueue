@@ -20,16 +20,19 @@ abstract class AbstractQueue implements QueueInterface
         $this->jobPluginManager = $jobPluginManager;
     }
 
+    #[\Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[\Override]
     public function getWorkerName(): string
     {
         return static::$defaultWorkerName;
     }
 
+    #[\Override]
     public function getJobPluginManager(): JobPluginManager
     {
         return $this->jobPluginManager;

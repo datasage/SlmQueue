@@ -26,6 +26,7 @@ class AttachQueueListenersStrategy extends AbstractStrategy
         $this->strategyConfig = $strategyConfig;
     }
 
+    #[\Override]
     public function attach(EventManagerInterface $events, $priority = 1): void
     {
         $this->listeners[] = $events->attach(
