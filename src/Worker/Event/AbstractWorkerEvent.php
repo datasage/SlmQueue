@@ -5,6 +5,9 @@ namespace SlmQueue\Worker\Event;
 use Laminas\EventManager\Event;
 use SlmQueue\Worker\WorkerInterface;
 
+/**
+ * @template-extends Event<WorkerInterface, array<string, mixed>>
+ */
 abstract class AbstractWorkerEvent extends Event implements WorkerEventInterface
 {
     /**
