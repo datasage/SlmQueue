@@ -12,10 +12,6 @@
             );
         }]]></code>
     </InvalidCatch>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function configure(): void]]></code>
-      <code><![CDATA[protected function execute(InputInterface $input, OutputInterface $output): int]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -31,43 +27,7 @@
       <code><![CDATA[pushJob]]></code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src/Factory/JobPluginManagerFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(ContainerInterface $container, $requestedName, array $options = null): JobPluginManager]]></code>
-      <code><![CDATA[public function createService(ServiceLocatorInterface $serviceLocator): JobPluginManager]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Factory/QueueControllerPluginFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(ContainerInterface $container, $requestedName, array $options = null): QueuePlugin]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Factory/QueuePluginManagerFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(ContainerInterface $container, $requestedName, array $options = null): QueuePluginManager]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Factory/StrategyPluginManagerFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Factory/WorkerAbstractFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(ContainerInterface $container, $requestedName, array $options = null): WorkerInterface]]></code>
-      <code><![CDATA[public function canCreate(ContainerInterface $container, $requestedName)]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Factory/WorkerPluginManagerFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(ContainerInterface $container, $requestedName, array $options = null): WorkerPluginManager]]></code>
-    </MissingOverrideAttribute>
-  </file>
   <file src="src/Job/AbstractJob.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getId()]]></code>
-      <code><![CDATA[public function setId($id): JobInterface]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[createEmptyJob]]></code>
     </PossiblyUnusedMethod>
@@ -80,10 +40,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Job/JobPluginManager.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function get($name, $options = [], $usePeeringServiceManagers = true): JobInterface]]></code>
-      <code><![CDATA[public function validate($instance)]]></code>
-    </MissingOverrideAttribute>
     <MissingTemplateParam>
       <code><![CDATA[JobPluginManager]]></code>
     </MissingTemplateParam>
@@ -95,11 +51,6 @@
     </PossiblyUnusedProperty>
   </file>
   <file src="src/Queue/AbstractQueue.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getJobPluginManager(): JobPluginManager]]></code>
-      <code><![CDATA[public function getName(): string]]></code>
-      <code><![CDATA[public function getWorkerName(): string]]></code>
-    </MissingOverrideAttribute>
     <UnusedClass>
       <code><![CDATA[AbstractQueue]]></code>
     </UnusedClass>
@@ -120,9 +71,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Queue/QueuePluginManager.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function validate($instance): void]]></code>
-    </MissingOverrideAttribute>
     <MissingTemplateParam>
       <code><![CDATA[QueuePluginManager]]></code>
     </MissingTemplateParam>
@@ -132,20 +80,7 @@
       <code><![CDATA[$event]]></code>
     </PossiblyUnusedParam>
   </file>
-  <file src="src/Strategy/AttachQueueListenersStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
-  </file>
-  <file src="src/Strategy/Factory/AttachQueueListenersStrategyFactory.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __invoke(]]></code>
-    </MissingOverrideAttribute>
-  </file>
   <file src="src/Strategy/FileWatchStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getFiles]]></code>
       <code><![CDATA[getPattern]]></code>
@@ -154,9 +89,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Strategy/InterruptStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -165,9 +97,6 @@
     <InvalidArrayOffset>
       <code><![CDATA[$units[$i]]]></code>
     </InvalidArrayOffset>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getMaxMemory]]></code>
       <code><![CDATA[setMaxMemory]]></code>
@@ -177,9 +106,6 @@
     </PossiblyUnusedParam>
   </file>
   <file src="src/Strategy/MaxPollingFrequencyStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getMaxFrequency]]></code>
       <code><![CDATA[setMaxFrequency]]></code>
@@ -189,9 +115,6 @@
     </PossiblyUnusedParam>
   </file>
   <file src="src/Strategy/MaxRunsStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getMaxRuns]]></code>
       <code><![CDATA[setMaxRuns]]></code>
@@ -201,17 +124,11 @@
     </PossiblyUnusedParam>
   </file>
   <file src="src/Strategy/ProcessQueueStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <UnnecessaryVarAnnotation>
       <code><![CDATA[ResponseCollection]]></code>
     </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Strategy/StrategyPluginManager.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function validate($instance): void]]></code>
-    </MissingOverrideAttribute>
     <MissingTemplateParam>
       <code><![CDATA[StrategyPluginManager]]></code>
     </MissingTemplateParam>
@@ -220,9 +137,6 @@
     </PossiblyUnusedProperty>
   </file>
   <file src="src/Strategy/WorkerLifetimeStrategy.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[getLifetime]]></code>
       <code><![CDATA[setLifetime]]></code>
@@ -233,9 +147,6 @@
     </PossiblyUnusedParam>
   </file>
   <file src="src/Worker/AbstractWorker.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function processQueue(QueueInterface $queue, array $options = []): array]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -244,9 +155,6 @@
     </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Worker/Event/AbstractWorkerEvent.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getWorker(): WorkerInterface]]></code>
-    </MissingOverrideAttribute>
     <MissingTemplateParam>
       <code><![CDATA[AbstractWorkerEvent]]></code>
     </MissingTemplateParam>
