@@ -12,7 +12,7 @@ use SlmQueue\Worker\WorkerInterface;
 class WorkerAbstractFactory implements AbstractFactoryInterface
 {
     #[\Override]
-    public function canCreate(ContainerInterface $container, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName): bool
     {
         return in_array(WorkerInterface::class, class_implements($requestedName), true);
     }

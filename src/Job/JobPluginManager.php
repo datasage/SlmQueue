@@ -18,22 +18,22 @@ class JobPluginManager extends AbstractPluginManager
      *
      * @var bool
      */
-    protected $sharedByDefault = false;
+    protected bool $sharedByDefault = false;
 
     /**
      * @inheritdoc
      *
-     * @param string $name
+     * @param string $id
      * @param array  $options
      * @param bool   $usePeeringServiceManagers
      * @return JobInterface
      */
     #[\Override]
-    public function get($name, $options = [], $usePeeringServiceManagers = true): JobInterface
+    public function get($id, $options = [], $usePeeringServiceManagers = true): JobInterface
     {
         // parent::get calls validate() so we're sure $instance is a JobInterface
-        $instance = parent::get($name, $options, $usePeeringServiceManagers);
-        $instance->setMetadata('__name__', $name);
+        $instance = parent::get($id, $options, $usePeeringServiceManagers);
+        $instance->setMetadata('__name__', $id);
 
         return $instance;
     }
@@ -42,7 +42,7 @@ class JobPluginManager extends AbstractPluginManager
      * {@inheritDoc}
      */
     #[\Override]
-    public function validate($instance)
+    public function validate($instance): void
     {
         if ($instance instanceof JobInterface) {
             return; // we're okay

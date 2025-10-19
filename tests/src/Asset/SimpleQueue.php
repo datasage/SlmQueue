@@ -9,16 +9,8 @@ class SimpleQueue extends AbstractQueue
 {
     protected static $defaultWorkerName = SimpleWorker::class;
 
-    /**
-     * @var array
-     */
-    protected $jobs;
-
-    /**
-     * @var array
-     */
-    protected $options;
-
+    protected array $jobs = [];
+    protected array $options;
 
     public function push(JobInterface $job, array $options = []): void
     {

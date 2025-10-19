@@ -3,7 +3,6 @@
 namespace SlmQueue\Strategy\Factory;
 
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Psr\Container\ContainerInterface;
 use SlmQueue\Strategy\AttachQueueListenersStrategy;
 use SlmQueue\Strategy\StrategyPluginManager;

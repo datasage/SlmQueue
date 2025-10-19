@@ -20,9 +20,8 @@
 
 namespace SlmQueueTest\Util;
 
-use Laminas\ModuleManager\ModuleManager;
-use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
+use SlmQueue\ConfigProvider;
 
 /**
  * Utility used to retrieve a freshly bootstrapped application's service manager
@@ -47,29 +46,40 @@ class ServiceManagerFactory
     }
 
     /**
-     * Builds a new service manager
+     * Builds a new service manager without relying on Laminas MVC ServiceManagerConfig
      */
     public static function getServiceManager(): ServiceManager
     {
-        $serviceManagerConfig = new ServiceManagerConfig(
-            isset(static::$config['service_manager']) ? static::$config['service_manager'] : []
-        );
-        /*
-         * get array for new ServiceManager
-         */
-        $config = (method_exists($serviceManagerConfig, 'toArray')
-            && method_exists(ServiceManager::class, 'configure')) ?
-            $serviceManagerConfig->toArray() : $serviceManagerConfig;
+        // Base configuration from the library's ConfigProvider (PSR-11 style)
+        $provider = new ConfigProvider();
+        $baseConfig = $provider(); // returns ['dependencies' => ..., 'slm_queue' => ..., 'laminas-cli' => ...]
 
-        $serviceManager = new ServiceManager($config);
-        $serviceManager->setService('ApplicationConfig', static::$config);
-        $serviceManager->setAllowOverride(true);
-        $serviceManager->setFactory('ServiceListener', 'Laminas\Mvc\Service\ServiceListenerFactory');
-        $serviceManager->setAllowOverride(false);
+        // Merge testing overrides from the provided TestConfiguration (testing.config.php)
+        $testingConfig = [];
+        if (isset(static::$config['module_listener_options']['config_glob_paths'][0])) {
+            $path = static::$config['module_listener_options']['config_glob_paths'][0];
+            if (is_file($path)) {
+                $testingConfig = include $path;
+            }
+        }
 
-        /** @var $moduleManager ModuleManager */
-        $moduleManager = $serviceManager->get('ModuleManager');
-        $moduleManager->loadModules();
+        // Compose final config array available under 'config' service
+        $finalConfig = $baseConfig;
+        foreach (['slm_queue', 'laminas-cli', 'dependencies'] as $key) {
+            if (isset($testingConfig[$key])) {
+                if (! isset($finalConfig[$key])) {
+                    $finalConfig[$key] = [];
+                }
+                $finalConfig[$key] = array_replace_recursive($finalConfig[$key], $testingConfig[$key]);
+            }
+        }
+
+        // Build the ServiceManager using only the dependencies section
+        $dependencies = $finalConfig['dependencies'] ?? [];
+        $serviceManager = new ServiceManager($dependencies);
+
+        // Expose the complete configuration as 'config' for factories that need it
+        $serviceManager->setService('config', $finalConfig);
 
         return $serviceManager;
     }

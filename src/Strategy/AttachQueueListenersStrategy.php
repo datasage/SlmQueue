@@ -69,7 +69,7 @@ class AttachQueueListenersStrategy extends AbstractStrategy
             }
 
             /** @var ListenerAggregateInterface $listener */
-            $listener = $this->pluginManager->get($strategy, $options);
+            $listener = $this->pluginManager->build($strategy, $options);
 
             if ($priority !== null) {
                 $listener->attach($eventManager, $priority);

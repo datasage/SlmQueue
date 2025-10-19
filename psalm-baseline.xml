@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
   <file src="src/Command/StartWorkerCommand.php">
-    <InvalidCatch>
-      <code><![CDATA[try {
-            $messages = $worker->processQueue($queue, $input->getArguments());
-        } catch (ExceptionInterface $e) {
-            throw new WorkerProcessException(
-                'Caught exception while processing queue',
-                $e->getCode(),
-                $e
-            );
-        }]]></code>
-    </InvalidCatch>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -20,12 +9,6 @@
     <UnusedClass>
       <code><![CDATA[ConfigProvider]]></code>
     </UnusedClass>
-  </file>
-  <file src="src/Controller/Plugin/QueuePlugin.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[push]]></code>
-      <code><![CDATA[pushJob]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Job/AbstractJob.php">
     <PossiblyUnusedMethod>
@@ -43,9 +26,6 @@
     <MissingTemplateParam>
       <code><![CDATA[JobPluginManager]]></code>
     </MissingTemplateParam>
-    <ParamNameMismatch>
-      <code><![CDATA[$name]]></code>
-    </ParamNameMismatch>
     <PossiblyUnusedProperty>
       <code><![CDATA[$shareByDefault]]></code>
     </PossiblyUnusedProperty>
@@ -53,11 +33,6 @@
   <file src="src/Queue/AbstractQueue.php">
     <UnusedClass>
       <code><![CDATA[AbstractQueue]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/Queue/Exception/RuntimeException.php">
-    <UnusedClass>
-      <code><![CDATA[RuntimeException]]></code>
     </UnusedClass>
   </file>
   <file src="src/Queue/Exception/UnsupportedOperationException.php">
@@ -73,6 +48,7 @@
   <file src="src/Queue/QueueInterface.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[delete]]></code>
+      <code><![CDATA[push]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Queue/QueuePluginManager.php">

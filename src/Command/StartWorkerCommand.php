@@ -42,8 +42,8 @@ class StartWorkerCommand extends Command
 
         try {
             $messages = $worker->processQueue($queue, $input->getArguments());
-        } catch (ExceptionInterface $e) {
-            throw new WorkerProcessException(
+        } catch (\Exception $e) {
+            throw new \RuntimeException(
                 'Caught exception while processing queue',
                 $e->getCode(),
                 $e

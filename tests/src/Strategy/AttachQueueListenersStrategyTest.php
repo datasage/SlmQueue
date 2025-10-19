@@ -69,7 +69,7 @@ class AttachQueueListenersStrategyTest extends TestCase
 
         $this->queue->expects($this->once())->method('getName')->will($this->returnValue('queueName'));
         $strategyMock = $this->createMock('SlmQueueTest\Asset\SimpleStrategy');
-        $this->strategyManager->expects($this->once())->method('get')->willReturn($strategyMock);
+        $this->strategyManager->expects($this->once())->method('build')->willReturn($strategyMock);
 
         // will attach WorkerEventInterface::EVENT_BOOTSTRAP callback to listener
         $this->listener->attach($eventManager);
@@ -93,7 +93,7 @@ class AttachQueueListenersStrategyTest extends TestCase
         $this->queue->expects($this->once())->method('getName')->willreturn('nonConfiguredQueueName');
         $strategyMock = $this->createMock(SimpleStrategy::class);
         $strategyMock->expects($this->exactly(1))->method('attach');
-        $this->strategyManager->expects($this->once())->method('get')->with(
+        $this->strategyManager->expects($this->once())->method('build')->with(
             SimpleStrategy::class,
             []
         )->willReturn($strategyMock);
@@ -128,7 +128,7 @@ class AttachQueueListenersStrategyTest extends TestCase
         $strategyMock3 = $this->createMock(ListenerAggregateInterface::class);
         $strategyMock3->expects($this->exactly(1))->method('attach')->with($eventManager);
 
-        $this->strategyManager->expects($this->exactly(3))->method('get')
+        $this->strategyManager->expects($this->exactly(3))->method('build')
             ->willReturnCallback(function ($name, $options) use ($strategyMock1, $strategyMock2, $strategyMock3) {
                 switch ($name) {
                     case 'SlmQueue\Strategy\SomeStrategy':
@@ -155,7 +155,7 @@ class AttachQueueListenersStrategyTest extends TestCase
 
         $strategyMock = $this->createMock(ListenerAggregateInterface::class);
         $strategyMock->expects($this->exactly(1))->method('attach')->with($eventManager);
-        $this->strategyManager->expects($this->once())->method('get')->with(
+        $this->strategyManager->expects($this->once())->method('build')->with(
             'SlmQueue\Strategy\SomeStrategy',
             []
         )->willReturn($strategyMock);
