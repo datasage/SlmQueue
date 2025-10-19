@@ -18,7 +18,7 @@ class WorkerAbstractFactory implements AbstractFactoryInterface
     }
 
     #[\Override]
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): WorkerInterface
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): WorkerInterface
     {
         $config = $container->get('config');
         $strategies = $config['slm_queue']['worker_strategies']['default'];

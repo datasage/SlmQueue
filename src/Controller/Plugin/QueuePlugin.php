@@ -71,7 +71,7 @@ class QueuePlugin extends AbstractPlugin
      * @return JobInterface    Created job by the job plugin manager
      * @throws QueueNotFoundException If the method is called without a queue set
      */
-    public function push(string $name, $payload = null, array $options = []): JobInterface
+    public function push(string $name, $payload = null, ?array $options = []): JobInterface
     {
         $this->assertQueueIsSet();
 
