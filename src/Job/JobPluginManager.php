@@ -6,19 +6,12 @@ use Laminas\ServiceManager\AbstractPluginManager;
 
 class JobPluginManager extends AbstractPluginManager
 {
-    /**
-     * SM2
-     *
-     * @var bool
-     */
-    protected $shareByDefault = false;
+    public function __construct($configInstanceOrParentLocator = null, array $config = [])
+    {
+        $config['shared_by_default'] = false;
+        parent::__construct($configInstanceOrParentLocator, $config);
+    }
 
-    /**
-     * SM3
-     *
-     * @var bool
-     */
-    protected bool $sharedByDefault = false;
 
     /**
      * @inheritdoc
@@ -50,7 +43,7 @@ class JobPluginManager extends AbstractPluginManager
 
         throw new Exception\RuntimeException(sprintf(
             'Plugin of type %s is invalid; must implement SlmQueue\Job\JobInterface',
-            (is_object($instance) ? get_class($instance) : gettype($instance))
+            (is_object($instance) ? get_class($instance) : gettype($instance)),
         ));
     }
 }
