@@ -3,6 +3,7 @@
 namespace SlmQueueTest\Job;
 
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\Test\Util\ModuleLoader;
 use PHPUnit\Framework\TestCase;
 use SlmQueue\Job\Exception\RuntimeException;
 use SlmQueue\Job\JobPluginManager;
@@ -19,7 +20,9 @@ class JobPluginManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->serviceManager = ServiceManagerFactory::getServiceManager();
+
+        $moduleLoader = new ModuleLoader(include __DIR__ . '/../TestConfiguration.php.dist');
+        $this->serviceManager = $moduleLoader->getServiceManager();
     }
 
     public function testCanRetrievePluginManagerWithServiceManager(): void

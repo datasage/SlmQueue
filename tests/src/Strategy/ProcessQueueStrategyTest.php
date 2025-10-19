@@ -42,20 +42,25 @@ class ProcessQueueStrategyTest extends TestCase
         $evm = $this->createMock(EventManagerInterface::class);
         $priority = 1;
 
-        $evm->expects($this->at(0))
+        $calls = [];
+        $evm->expects($this->exactly(2))
             ->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'onJobPop'], $priority);
-        $evm->expects($this->at(1))
-            ->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_JOB, [$this->listener, 'onJobProcess'], $priority);
+            ->willReturnCallback(function ($event, $listener, $prio) use (&$calls) {
+                $calls[] = [$event, $listener, $prio];
+            });
 
         $this->listener->attach($evm, $priority);
+
+        static::assertSame([
+            [WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'onJobPop'], $priority],
+            [WorkerEventInterface::EVENT_PROCESS_JOB, [$this->listener, 'onJobProcess'], $priority],
+        ], $calls);
     }
 
     public function testJobPopWithEmptyQueueTriggersIdleAndNoExitResultIsReturned(): void
     {
         $popOptions = [];
-        $this->queue->expects($this->at(0))
+        $this->queue->expects($this->once())
             ->method('pop')
             ->with($popOptions)
             ->willReturn(null);
@@ -80,7 +85,7 @@ class ProcessQueueStrategyTest extends TestCase
     public function testJobPopWithEmptyQueueTriggersIdleAndExitResultIsReturned(): void
     {
         $popOptions = [];
-        $this->queue->expects($this->at(0))
+        $this->queue->expects($this->once())
             ->method('pop')
             ->with($popOptions)
             ->willReturn(null);
@@ -110,7 +115,7 @@ class ProcessQueueStrategyTest extends TestCase
     public function testJobPopWithJobTriggersProcessJobEvent(JobInterface $job): void
     {
         $popOptions = [];
-        $this->queue->expects($this->at(0))
+        $this->queue->expects($this->once())
             ->method('pop')
             ->with($popOptions)
             ->willReturn($job);
@@ -146,7 +151,7 @@ class ProcessQueueStrategyTest extends TestCase
         static::assertSame('bar', $event->getJob()->getMetadata('foo'));
     }
 
-    public function jobsProvider(): array
+    public static function jobsProvider(): array
     {
         return [
             [new SimpleJob()],

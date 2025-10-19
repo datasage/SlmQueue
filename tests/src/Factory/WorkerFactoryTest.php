@@ -2,15 +2,18 @@
 
 namespace SlmQueueTest\Factory;
 
+use Laminas\Test\Util\ModuleLoader;
 use PHPUnit\Framework\TestCase;
 use SlmQueue\Factory\WorkerAbstractFactory;
 use SlmQueueTest\Util\ServiceManagerFactory;
 
-class AbstractWorkerTest extends TestCase
+class WorkerFactoryTest extends TestCase
 {
     public function testCreateService(): void
     {
-        $sm = ServiceManagerFactory::getServiceManager();
+        $moduleLoader = new ModuleLoader(include __DIR__ . '/../TestConfiguration.php.dist');
+        $sm = $moduleLoader->getServiceManager();
+
         $factory = new WorkerAbstractFactory();
         $worker = $factory->__invoke($sm, 'SlmQueueTest\Asset\SimpleWorker');
 

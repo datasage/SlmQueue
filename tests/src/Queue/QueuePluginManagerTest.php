@@ -3,8 +3,9 @@
 namespace SlmQueueTest\Queue;
 
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\Test\Util\ModuleLoader;
 use PHPUnit\Framework\TestCase;
-use SlmQueue\Queue\Exception\RuntimeException;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 use SlmQueue\Queue\QueuePluginManager;
 use SlmQueueTest\Util\ServiceManagerFactory;
 use stdClass;
@@ -20,7 +21,8 @@ class QueuePluginManagerTest extends TestCase
     {
         parent::setUp();
 
-        $this->serviceManager = ServiceManagerFactory::getServiceManager();
+        $moduleLoader = new ModuleLoader(include __DIR__ . '/../TestConfiguration.php.dist');
+        $this->serviceManager = $moduleLoader->getServiceManager();
     }
 
     public function testCanRetrievePluginManagerWithServiceManager(): void
@@ -45,7 +47,7 @@ class QueuePluginManagerTest extends TestCase
         $manager = new QueuePluginManager($serviceManager);
         $queue = new stdClass();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(InvalidServiceException::class);
         $manager->validate($queue);
     }
 }

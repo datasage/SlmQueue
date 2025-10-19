@@ -3,6 +3,7 @@
 namespace SlmQueueTest\Command;
 
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\Test\Util\ModuleLoader;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SlmQueue\Command\StartWorkerCommand;
@@ -28,7 +29,9 @@ class StartWorkerCommandTest extends TestCase
 
     public function setUp(): void
     {
-        $serviceManager = ServiceManagerFactory::getServiceManager();
+        $moduleLoader = new ModuleLoader(include __DIR__ . '/../TestConfiguration.php.dist');
+        $serviceManager = $moduleLoader->getServiceManager();
+
         $this->queuePluginManager = $serviceManager->get(QueuePluginManager::class);
         $this->workerPluginManager = $serviceManager->get(WorkerPluginManager::class);
 

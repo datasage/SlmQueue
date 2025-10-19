@@ -38,14 +38,19 @@ class FileWatchStrategyTest extends TestCase
         $evm = $this->createMock(EventManagerInterface::class);
         $priority = 1;
 
-        $evm->expects($this->at(0))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_IDLE, [$this->listener, 'onStopConditionCheck'], $priority);
-        $evm->expects($this->at(1))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'onStopConditionCheck'], 1000);
-        $evm->expects($this->at(2))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_STATE, [$this->listener, 'onReportQueueState'], $priority);
+        $calls = [];
+        $evm->expects($this->exactly(3))->method('attach')
+            ->willReturnCallback(function ($event, $listener, $prio) use (&$calls) {
+                $calls[] = [$event, $listener, $prio];
+            });
 
         $this->listener->attach($evm, $priority);
+
+        static::assertSame([
+            [WorkerEventInterface::EVENT_PROCESS_IDLE, [$this->listener, 'onStopConditionCheck'], $priority],
+            [WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'onStopConditionCheck'], 1000],
+            [WorkerEventInterface::EVENT_PROCESS_STATE, [$this->listener, 'onReportQueueState'], $priority],
+        ], $calls);
     }
 
     public function testPatternDefault(): void

@@ -7,7 +7,7 @@ use SlmQueue\Queue\QueueInterface;
 use SlmQueue\Worker\Event\BootstrapEvent;
 use SlmQueue\Worker\WorkerInterface;
 
-class WorkerEventTest extends TestCase
+class BootstrapEventTest extends TestCase
 {
     protected $queue;
     protected $worker;

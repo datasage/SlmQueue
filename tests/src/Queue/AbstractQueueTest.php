@@ -3,6 +3,7 @@
 namespace SlmQueueTest\Queue;
 
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\Test\Util\ModuleLoader;
 use PHPUnit\Framework\TestCase;
 use SlmQueueTest\Asset\SimpleQueue;
 use SlmQueueTest\Asset\SimpleWorker;
@@ -19,7 +20,8 @@ class AbstractQueueTest extends TestCase
     {
         parent::setUp();
 
-        $this->serviceManager = ServiceManagerFactory::getServiceManager();
+        $moduleLoader = new ModuleLoader(include __DIR__ . '/../TestConfiguration.php.dist');
+        $this->serviceManager = $moduleLoader->getServiceManager();
     }
 
     public function testGetters(): void

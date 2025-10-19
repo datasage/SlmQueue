@@ -47,7 +47,7 @@ class QueuePlugin extends AbstractPlugin
     /**
      * Invoke plugin and optionally set queue
      */
-    public function __invoke(string $name = null): self
+    public function __invoke(?string $name = null): self
     {
         if (null !== $name) {
             if (! $this->queuePluginManager->has($name)) {

@@ -48,7 +48,7 @@ class AttachQueueListenersStrategyTest extends TestCase
         $evm = $this->createMock(EventManagerInterface::class);
         $priority = 1;
 
-        $evm->expects($this->at(0))->method('attach')
+        $evm->expects($this->once())->method('attach')
             ->with(WorkerEventInterface::EVENT_BOOTSTRAP, [$this->listener, 'attachQueueListeners'], PHP_INT_MAX);
 
         $this->listener->attach($evm, $priority);
@@ -59,7 +59,7 @@ class AttachQueueListenersStrategyTest extends TestCase
         $eventManager = $this->createMock('Laminas\EventManager\EventManager');
         $this->worker = new SimpleWorker($eventManager);
 
-        $eventManager->expects($this->at(0))->method('attach')
+        $eventManager->expects($this->once())->method('attach')
             ->with(WorkerEventInterface::EVENT_BOOTSTRAP, [$this->listener, 'attachQueueListeners'])
             ->willReturn([$this->listener, 'attachQueueListeners']);
 
@@ -93,7 +93,7 @@ class AttachQueueListenersStrategyTest extends TestCase
         $this->queue->expects($this->once())->method('getName')->willreturn('nonConfiguredQueueName');
         $strategyMock = $this->createMock(SimpleStrategy::class);
         $strategyMock->expects($this->exactly(1))->method('attach');
-        $this->strategyManager->expects($this->at(0))->method('get')->with(
+        $this->strategyManager->expects($this->once())->method('get')->with(
             SimpleStrategy::class,
             []
         )->willReturn($strategyMock);
@@ -119,26 +119,30 @@ class AttachQueueListenersStrategyTest extends TestCase
         $eventManager = $this->worker->getEventManager();
         $this->queue->expects($this->once())->method('getName')->willreturn('queueName');
 
-        $strategyMock = $this->createMock(ListenerAggregateInterface::class);
-        $strategyMock->expects($this->exactly(1))->method('attach')->with($eventManager);
-        $this->strategyManager->expects($this->at(0))->method('get')->with(
-            'SlmQueue\Strategy\SomeStrategy',
-            []
-        )->willReturn($strategyMock);
+        $strategyMock1 = $this->createMock(ListenerAggregateInterface::class);
+        $strategyMock1->expects($this->exactly(1))->method('attach')->with($eventManager);
 
-        $strategyMock = $this->createMock(ListenerAggregateInterface::class);
-        $strategyMock->expects($this->exactly(1))->method('attach')->with($eventManager, 3);
-        $this->strategyManager->expects($this->at(1))->method('get')->with(
-            'SlmQueue\Strategy\OtherStrategy',
-            []
-        )->willReturn($strategyMock);
+        $strategyMock2 = $this->createMock(ListenerAggregateInterface::class);
+        $strategyMock2->expects($this->exactly(1))->method('attach')->with($eventManager, 3);
 
-        $strategyMock = $this->createMock(ListenerAggregateInterface::class);
-        $strategyMock->expects($this->exactly(1))->method('attach')->with($eventManager);
-        $this->strategyManager->expects($this->at(2))->method('get')->with(
-            'SlmQueue\Strategy\FinalStrategy',
-            ['foo' => 'bar']
-        )->willReturn($strategyMock);
+        $strategyMock3 = $this->createMock(ListenerAggregateInterface::class);
+        $strategyMock3->expects($this->exactly(1))->method('attach')->with($eventManager);
+
+        $this->strategyManager->expects($this->exactly(3))->method('get')
+            ->willReturnCallback(function ($name, $options) use ($strategyMock1, $strategyMock2, $strategyMock3) {
+                switch ($name) {
+                    case 'SlmQueue\Strategy\SomeStrategy':
+                        $this->assertSame([], $options);
+                        return $strategyMock1;
+                    case 'SlmQueue\Strategy\OtherStrategy':
+                        $this->assertSame([], $options);
+                        return $strategyMock2;
+                    case 'SlmQueue\Strategy\FinalStrategy':
+                        $this->assertSame(['foo' => 'bar'], $options);
+                        return $strategyMock3;
+                }
+                $this->fail('Unexpected strategy requested: ' . $name);
+            });
 
         $this->listener->attachQueueListeners(new BootstrapEvent($this->worker, $this->queue));
     }
@@ -151,7 +155,7 @@ class AttachQueueListenersStrategyTest extends TestCase
 
         $strategyMock = $this->createMock(ListenerAggregateInterface::class);
         $strategyMock->expects($this->exactly(1))->method('attach')->with($eventManager);
-        $this->strategyManager->expects($this->at(0))->method('get')->with(
+        $this->strategyManager->expects($this->once())->method('get')->with(
             'SlmQueue\Strategy\SomeStrategy',
             []
         )->willReturn($strategyMock);
