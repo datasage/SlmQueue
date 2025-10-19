@@ -42,8 +42,8 @@ jobs:
         run: |
           find src tests -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
-      #- name: Run PHPCS
-      #  run: vendor/bin/phpcs -q
+      - name: Run PHPCS
+        run: vendor/bin/phpcs -q
 
       - name: Run Psalm
         run: vendor/bin/psalm --output-format=github --no-cache
