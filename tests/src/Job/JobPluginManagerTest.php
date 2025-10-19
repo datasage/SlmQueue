@@ -3,11 +3,11 @@
 namespace SlmQueueTest\Job;
 
 use Laminas\ServiceManager\ServiceManager;
+use SlmQueueTest\Util\ServiceManagerFactory;
 use PHPUnit\Framework\TestCase;
 use SlmQueue\Job\Exception\RuntimeException;
 use SlmQueue\Job\JobPluginManager;
 use SlmQueueTest\Asset\SimpleJob;
-use SlmQueueTest\Util\ServiceManagerFactory;
 
 class JobPluginManagerTest extends TestCase
 {
@@ -19,6 +19,8 @@ class JobPluginManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        ServiceManagerFactory::setConfig(include __DIR__ . '/../TestConfiguration.php.dist');
         $this->serviceManager = ServiceManagerFactory::getServiceManager();
     }
 

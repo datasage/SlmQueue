@@ -6,13 +6,12 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SlmQueue\Command\StartWorkerCommand;
-use SlmQueue\Controller\Exception\WorkerProcessException;
 use SlmQueue\Queue\QueuePluginManager;
 use SlmQueue\Worker\WorkerPluginManager;
+use SlmQueueTest\Util\ServiceManagerFactory;
 use SlmQueueTest\Asset\FailingJob;
 use SlmQueueTest\Asset\SimpleJob;
 use SlmQueueTest\Asset\SimpleWorker;
-use SlmQueueTest\Util\ServiceManagerFactory;
 use Symfony\Component\Console\Exception\RuntimeException as ConsoleRuntimeException;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,17 +27,18 @@ class StartWorkerCommandTest extends TestCase
 
     public function setUp(): void
     {
+        ServiceManagerFactory::setConfig(include __DIR__ . '/../TestConfiguration.php.dist');
         $serviceManager = ServiceManagerFactory::getServiceManager();
+
         $this->queuePluginManager = $serviceManager->get(QueuePluginManager::class);
         $this->workerPluginManager = $serviceManager->get(WorkerPluginManager::class);
 
         $queue = $this->queuePluginManager->get('basic-queue');
 
-        /** @var SimpleWorker */
+        /** @var SimpleWorker $worker */
         $worker = $this->workerPluginManager->get($queue->getWorkerName());
         $eventManager = $worker->getEventManager();
 
-        $this->queuePluginManager = $serviceManager->get(QueuePluginManager::class);
         $this->output = $this->createMock(OutputInterface::class);
 
         $this->command = new StartWorkerCommand($this->queuePluginManager, $this->workerPluginManager);
@@ -97,7 +97,7 @@ class StartWorkerCommandTest extends TestCase
         $queue = $this->queuePluginManager->get('basic-queue');
         $queue->push(new FailingJob());
 
-        $this->expectException(WorkerProcessException::class);
+        $this->expectException(\RuntimeException::class);
 
         $this->command->run($input, $this->output);
     }

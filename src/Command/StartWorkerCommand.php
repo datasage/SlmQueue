@@ -27,11 +27,13 @@ class StartWorkerCommand extends Command
         $this->workerPluginManager = $workerPluginManager;
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument('queue', InputArgument::REQUIRED);
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $queueName = $input->getArgument('queue');
@@ -40,8 +42,8 @@ class StartWorkerCommand extends Command
 
         try {
             $messages = $worker->processQueue($queue, $input->getArguments());
-        } catch (ExceptionInterface $e) {
-            throw new WorkerProcessException(
+        } catch (\Exception $e) {
+            throw new \RuntimeException(
                 'Caught exception while processing queue',
                 $e->getCode(),
                 $e

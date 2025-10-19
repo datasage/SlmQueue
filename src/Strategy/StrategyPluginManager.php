@@ -15,6 +15,7 @@ class StrategyPluginManager extends AbstractPluginManager
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function validate($instance): void
     {
         if ($instance instanceof AbstractStrategy) {

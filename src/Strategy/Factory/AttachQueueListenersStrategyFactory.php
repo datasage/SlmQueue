@@ -3,17 +3,17 @@
 namespace SlmQueue\Strategy\Factory;
 
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Psr\Container\ContainerInterface;
 use SlmQueue\Strategy\AttachQueueListenersStrategy;
 use SlmQueue\Strategy\StrategyPluginManager;
 
 class AttachQueueListenersStrategyFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
-        array $options = null
+        ?array $options = null
     ): AttachQueueListenersStrategy {
         $pluginManager = $container->get(StrategyPluginManager::class);
         $config = $container->get('config');

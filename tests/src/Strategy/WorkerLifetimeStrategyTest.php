@@ -53,16 +53,21 @@ class WorkerLifetimeStrategyTest extends TestCase
         $evm = $this->createMock(EventManagerInterface::class);
         $priority = 1;
 
-        $evm->expects($this->at(0))->method('attach')
-            ->with(WorkerEventInterface::EVENT_BOOTSTRAP, [$this->listener, 'onBootstrap'], 1);
-        $evm->expects($this->at(1))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'checkRuntime'], -1000);
-        $evm->expects($this->at(2))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_IDLE, [$this->listener, 'checkRuntime'], -1000);
-        $evm->expects($this->at(3))->method('attach')
-            ->with(WorkerEventInterface::EVENT_PROCESS_STATE, [$this->listener, 'onReportQueueState'], 1);
+        $calls = [];
+        $evm->expects($this->exactly(4))
+            ->method('attach')
+            ->willReturnCallback(function ($event, $listener, $prio) use (&$calls) {
+                $calls[] = [$event, $listener, $prio];
+            });
 
         $this->listener->attach($evm, $priority);
+
+        static::assertSame([
+            [WorkerEventInterface::EVENT_BOOTSTRAP, [$this->listener, 'onBootstrap'], 1],
+            [WorkerEventInterface::EVENT_PROCESS_QUEUE, [$this->listener, 'checkRuntime'], -1000],
+            [WorkerEventInterface::EVENT_PROCESS_IDLE, [$this->listener, 'checkRuntime'], -1000],
+            [WorkerEventInterface::EVENT_PROCESS_STATE, [$this->listener, 'onReportQueueState'], 1],
+        ], $calls);
     }
 
     public function testOnStopConditionCheckHandler(): void

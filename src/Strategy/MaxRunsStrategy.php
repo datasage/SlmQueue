@@ -33,6 +33,7 @@ class MaxRunsStrategy extends AbstractStrategy
         return $this->maxRuns;
     }
 
+    #[\Override]
     public function attach(EventManagerInterface $events, $priority = 1): void
     {
         $this->listeners[] = $events->attach(

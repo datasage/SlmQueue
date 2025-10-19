@@ -8,10 +8,11 @@ use SlmQueue\Strategy\StrategyPluginManager;
 
 class StrategyPluginManagerFactory implements FactoryInterface
 {
+    #[\Override]
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
-        array $options = null
+        ?array $options = null
     ): StrategyPluginManager {
         $config = $container->get('config');
         $config = $config['slm_queue']['strategy_manager'];

@@ -39,12 +39,6 @@ return [
         ],
     ],
 
-    'controller_plugins' => [
-        'factories' => [
-            'queue' => QueueControllerPluginFactory::class,
-        ],
-    ],
-
     'slm_queue' => [
         /**
          * Worker Strategies

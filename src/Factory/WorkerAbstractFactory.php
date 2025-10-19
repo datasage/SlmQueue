@@ -11,12 +11,14 @@ use SlmQueue\Worker\WorkerInterface;
 
 class WorkerAbstractFactory implements AbstractFactoryInterface
 {
-    public function canCreate(ContainerInterface $container, $requestedName)
+    #[\Override]
+    public function canCreate(ContainerInterface $container, $requestedName): bool
     {
         return in_array(WorkerInterface::class, class_implements($requestedName), true);
     }
 
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): WorkerInterface
+    #[\Override]
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): WorkerInterface
     {
         $config = $container->get('config');
         $strategies = $config['slm_queue']['worker_strategies']['default'];

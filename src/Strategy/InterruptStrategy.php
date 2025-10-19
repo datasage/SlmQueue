@@ -13,7 +13,7 @@ class InterruptStrategy extends AbstractStrategy
      */
     protected $interrupted = false;
 
-    public function __construct(array $options = null)
+    public function __construct(?array $options = null)
     {
         parent::__construct($options);
 
@@ -24,6 +24,7 @@ class InterruptStrategy extends AbstractStrategy
         }
     }
 
+    #[\Override]
     public function attach(EventManagerInterface $events, $priority = 1): void
     {
         $this->listeners[] = $events->attach(

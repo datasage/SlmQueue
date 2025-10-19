@@ -19,6 +19,7 @@ class AbstractQueueTest extends TestCase
     {
         parent::setUp();
 
+        ServiceManagerFactory::setConfig(include __DIR__ . '/../TestConfiguration.php.dist');
         $this->serviceManager = ServiceManagerFactory::getServiceManager();
     }
 

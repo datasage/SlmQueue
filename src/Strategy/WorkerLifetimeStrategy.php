@@ -41,6 +41,7 @@ class WorkerLifetimeStrategy extends AbstractStrategy
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function attach(EventManagerInterface $events, $priority = 1): void
     {
         $this->listeners[] = $events->attach(

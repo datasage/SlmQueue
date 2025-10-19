@@ -6,33 +6,27 @@ use Laminas\ServiceManager\AbstractPluginManager;
 
 class JobPluginManager extends AbstractPluginManager
 {
-    /**
-     * SM2
-     *
-     * @var bool
-     */
-    protected $shareByDefault = false;
+    public function __construct($configInstanceOrParentLocator = null, array $config = [])
+    {
+        $config['shared_by_default'] = false;
+        parent::__construct($configInstanceOrParentLocator, $config);
+    }
 
-    /**
-     * SM3
-     *
-     * @var bool
-     */
-    protected $sharedByDefault = false;
 
     /**
      * @inheritdoc
      *
-     * @param string $name
+     * @param string $id
      * @param array  $options
      * @param bool   $usePeeringServiceManagers
      * @return JobInterface
      */
-    public function get($name, $options = [], $usePeeringServiceManagers = true): JobInterface
+    #[\Override]
+    public function get($id, $options = [], $usePeeringServiceManagers = true): JobInterface
     {
         // parent::get calls validate() so we're sure $instance is a JobInterface
-        $instance = parent::get($name, $options, $usePeeringServiceManagers);
-        $instance->setMetadata('__name__', $name);
+        $instance = parent::get($id, $options, $usePeeringServiceManagers);
+        $instance->setMetadata('__name__', $id);
 
         return $instance;
     }
@@ -40,7 +34,8 @@ class JobPluginManager extends AbstractPluginManager
     /**
      * {@inheritDoc}
      */
-    public function validate($instance)
+    #[\Override]
+    public function validate($instance): void
     {
         if ($instance instanceof JobInterface) {
             return; // we're okay
@@ -48,7 +43,7 @@ class JobPluginManager extends AbstractPluginManager
 
         throw new Exception\RuntimeException(sprintf(
             'Plugin of type %s is invalid; must implement SlmQueue\Job\JobInterface',
-            (is_object($instance) ? get_class($instance) : gettype($instance))
+            (is_object($instance) ? get_class($instance) : gettype($instance)),
         ));
     }
 }

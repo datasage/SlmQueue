@@ -54,43 +54,34 @@ class AbstractWorkerTest extends TestCase
         $eventManager = $this->createMock('Laminas\EventManager\EventManager');
         $this->worker = new SimpleWorker($eventManager);
 
-        // BootstrapEvent
-        $eventManager->expects($this->at(0))->method('triggerEvent')->with(new BootstrapEvent(
-            $this->worker,
-            $this->queue
-        ));
-
-        // first ProcessQueueEvent with no exit
-        $response = new ResponseCollection();
-        $response->push(null);
-        $eventManager->expects($this->at(1))->method('triggerEventUntil')->with(function () {
-            return false;
-        }, new ProcessQueueEvent($this->worker, $this->queue))->willReturn($response);
-
-        // first ProcessQueueEvent with exit
-        $response = new ResponseCollection();
-        $response->push(ExitWorkerLoopResult::withReason('some exit reason'));
-        $response->setStopped(true);
-        $eventManager->expects($this->at(2))->method('triggerEventUntil')->with(function () {
-            return true;
-        }, new ProcessQueueEvent($this->worker, $this->queue))->willReturn($response);
-
-        // FinishEvent
-        $eventManager->expects($this->at(3))->method('triggerEvent')->with(new FinishEvent(
-            $this->worker,
-            $this->queue
-        ));
-
-        // ProcessStateEvent
-        $response = new ResponseCollection();
-        $response->push(ProcessStateResult::withState('some strategy state'));
-        $response->push(ProcessStateResult::withState('another strategy state'));
-
-        $eventManager
-            ->expects($this->at(4))
+        // BootstrapEvent, FinishEvent, and ProcessStateEvent
+        $called = [];
+        $eventManager->expects($this->exactly(3))
             ->method('triggerEvent')
-            ->with(new ProcessStateEvent($this->worker))
-            ->willReturn($response);
+            ->willReturnCallback(function ($event) use (&$called) {
+                $called[] = get_class($event);
+                if ($event instanceof ProcessStateEvent) {
+                    $response = new ResponseCollection();
+                    $response->push(ProcessStateResult::withState('some strategy state'));
+                    $response->push(ProcessStateResult::withState('another strategy state'));
+                    return $response;
+                }
+                return null;
+            });
+
+        // triggerEventUntil calls
+        $response1 = new ResponseCollection();
+        $response1->push(null);
+        $response2 = new ResponseCollection();
+        $response2->push(ExitWorkerLoopResult::withReason('some exit reason'));
+        $response2->setStopped(true);
+        $i = 0;
+        $eventManager->expects($this->exactly(2))
+            ->method('triggerEventUntil')
+            ->willReturnCallback(function ($callback, $event) use (&$i, $response1, $response2) {
+                $this->assertInstanceOf(ProcessQueueEvent::class, $event);
+                return $i++ === 0 ? $response1 : $response2;
+            });
 
         $result = $this->worker->processQueue($this->queue);
 

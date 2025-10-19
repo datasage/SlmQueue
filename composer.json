@@ -32,29 +32,29 @@
         }
     ],
     "require": {
-        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
+        "php": "^8.2",
         "ext-json": "*",
-        "laminas/laminas-eventmanager": "^3.4",
-        "laminas/laminas-servicemanager": "^3.11",
-        "laminas/laminas-stdlib": "^3.7.1",
-        "laminas/laminas-cli": "^1.2"
+        "laminas/laminas-eventmanager": "^3.14",
+        "laminas/laminas-servicemanager": "^3.24 | ^4.5",
+        "laminas/laminas-stdlib": "^3.21",
+        "laminas/laminas-cli": "^1.13"
     },
     "require-dev": {
-        "laminas/laminas-mvc": "^3.3",
-        "laminas/laminas-modulemanager": "^2.11",
-        "laminas/laminas-view": "^2.13",
-        "laminas/laminas-serializer": "^2.11",
-        "laminas/laminas-log": "^2.15",
-        "laminas/laminas-i18n": "^2.12",
-        "laminas/laminas-config": "^3.7",
-        "phpunit/phpunit": "^9.3",
-        "squizlabs/php_codesniffer": "^3.6.2"
+        "laminas/laminas-modulemanager": "^2.19",
+        "phpunit/phpunit": "^10.5.58",
+        "squizlabs/php_codesniffer": "^3.6.2",
+        "vimeo/psalm": "^6.13"
     },
     "suggest": {
         "slm/queue-sqs": "If you are using Amazon SQS",
         "slm/queue-beanstalkd": "If you are using Beanstalk",
         "slm/queue-doctrine": "If you are using Doctrine ORM",
         "rnd-cosoft/slm-queue-rabbitmq": "If you are using RabbitMQ"
+    },
+    "config" : {
+      "platform": {
+        "php": "8.2.27"
+      }
     },
     "extra": {
         "branch-alias": {

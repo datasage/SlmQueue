@@ -25,6 +25,9 @@ class QueueTest extends TestCase
     private string $jobName;
     private QueueInterface $queue;
 
+    protected BinaryJob $binaryJob;
+    protected string $binaryJobName;
+
     public function setUp(): void
     {
         $this->job = new SimpleJob();
