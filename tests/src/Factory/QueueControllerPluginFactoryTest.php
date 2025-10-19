@@ -9,7 +9,6 @@ use SlmQueueTest\Util\ServiceManagerFactory;
 
 class QueueControllerPluginFactoryTest extends TestCase
 {
-
     public function testCreateService(): void
     {
         $serviceManager = ServiceManagerFactory::getServiceManager();
