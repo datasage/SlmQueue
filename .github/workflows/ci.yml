@@ -7,7 +7,7 @@ on:
 
 jobs:
   quality-and-tests:
-    name: PHP ${{ matrix.php }} SM ${{ matrix.sm }} - lint, phpcs, psalm, phpunit
+    name: PHP ${{ matrix.php }} Deps ${{ matrix.deps }} - lint, phpcs, psalm, phpunit
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.php == '8.5' }}
     strategy:

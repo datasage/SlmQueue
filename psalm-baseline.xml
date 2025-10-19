@@ -1,176 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
-  <file src="src/Command/StartWorkerCommand.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/ConfigProvider.php">
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/Job/AbstractJob.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[createEmptyJob]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Job/JobInterface.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[execute]]></code>
-      <code><![CDATA[getId]]></code>
-      <code><![CDATA[setId]]></code>
-    </PossiblyUnusedMethod>
-  </file>
+<files psalm-version="6.13.0@70cdf647255a1362b426bb0f522a85817b8c791c">
   <file src="src/Job/JobPluginManager.php">
     <MissingTemplateParam>
       <code><![CDATA[JobPluginManager]]></code>
     </MissingTemplateParam>
-    <PossiblyUnusedProperty>
-      <code><![CDATA[$shareByDefault]]></code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Queue/AbstractQueue.php">
-    <UnusedClass>
-      <code><![CDATA[AbstractQueue]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/Queue/Exception/UnsupportedOperationException.php">
-    <UnusedClass>
-      <code><![CDATA[UnsupportedOperationException]]></code>
-    </UnusedClass>
-  </file>
-  <file src="src/Queue/QueueAwareInterface.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getQueue]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Queue/QueueInterface.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[delete]]></code>
-      <code><![CDATA[push]]></code>
-    </PossiblyUnusedMethod>
+    <NonInvariantPropertyType>
+      <code><![CDATA[$sharedByDefault]]></code>
+    </NonInvariantPropertyType>
+    <ParamNameMismatch>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$id]]></code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Queue/QueuePluginManager.php">
     <MissingTemplateParam>
       <code><![CDATA[QueuePluginManager]]></code>
     </MissingTemplateParam>
   </file>
-  <file src="src/Strategy/AbstractStrategy.php">
-    <PossiblyUnusedParam>
-      <code><![CDATA[$event]]></code>
-    </PossiblyUnusedParam>
-  </file>
-  <file src="src/Strategy/FileWatchStrategy.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getFiles]]></code>
-      <code><![CDATA[getPattern]]></code>
-      <code><![CDATA[setIdleThrottleTime]]></code>
-      <code><![CDATA[setPattern]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Strategy/InterruptStrategy.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Strategy/MaxMemoryStrategy.php">
     <InvalidArrayOffset>
       <code><![CDATA[$units[$i]]]></code>
     </InvalidArrayOffset>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getMaxMemory]]></code>
-      <code><![CDATA[setMaxMemory]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$event]]></code>
-    </PossiblyUnusedParam>
-  </file>
-  <file src="src/Strategy/MaxPollingFrequencyStrategy.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getMaxFrequency]]></code>
-      <code><![CDATA[setMaxFrequency]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$event]]></code>
-    </PossiblyUnusedParam>
-  </file>
-  <file src="src/Strategy/MaxRunsStrategy.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getMaxRuns]]></code>
-      <code><![CDATA[setMaxRuns]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$event]]></code>
-    </PossiblyUnusedParam>
-  </file>
-  <file src="src/Strategy/ProcessQueueStrategy.php">
-    <UnnecessaryVarAnnotation>
-      <code><![CDATA[ResponseCollection]]></code>
-    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Strategy/StrategyPluginManager.php">
     <MissingTemplateParam>
       <code><![CDATA[StrategyPluginManager]]></code>
     </MissingTemplateParam>
-    <PossiblyUnusedProperty>
-      <code><![CDATA[$shareByDefault]]></code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Strategy/WorkerLifetimeStrategy.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getLifetime]]></code>
-      <code><![CDATA[setLifetime]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$event]]></code>
-      <code><![CDATA[$event]]></code>
-    </PossiblyUnusedParam>
-  </file>
-  <file src="src/Worker/AbstractWorker.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
-    <UnnecessaryVarAnnotation>
-      <code><![CDATA[ResponseCollection]]></code>
-    </UnnecessaryVarAnnotation>
-  </file>
-  <file src="src/Worker/Event/AbstractWorkerEvent.php">
-    <MissingTemplateParam>
-      <code><![CDATA[AbstractWorkerEvent]]></code>
-    </MissingTemplateParam>
-  </file>
-  <file src="src/Worker/Event/FinishEvent.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getQueue]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Worker/Event/ProcessIdleEvent.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getQueue]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Worker/Event/ProcessJobEvent.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getResult]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Worker/Result/ExitWorkerLoopResult.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getReason]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Worker/Result/ProcessStateResult.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getState]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Worker/WorkerInterface.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[processJob]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Worker/WorkerPluginManager.php">
+    <InvalidArgument>
+      <code><![CDATA[$config]]></code>
+    </InvalidArgument>
     <MissingTemplateParam>
       <code><![CDATA[WorkerPluginManager]]></code>
     </MissingTemplateParam>
