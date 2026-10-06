@@ -83,7 +83,6 @@ class AttachQueueListenersStrategyTest extends TestCase
         // let's change the config setup
         $class = new ReflectionClass(AttachQueueListenersStrategy::class);
         $strategyConfig = $class->getProperty('strategyConfig');
-        $strategyConfig->setAccessible(true);
         $strategyConfig->setValue($this->listener, [
             'default' => [
                 SimpleStrategy::class,
@@ -106,7 +105,6 @@ class AttachQueueListenersStrategyTest extends TestCase
         // let's change the config setup
         $class = new ReflectionClass(AttachQueueListenersStrategy::class);
         $strategyConfig = $class->getProperty('strategyConfig');
-        $strategyConfig->setAccessible(true);
         $strategyConfig->setValue($this->listener, [
             'queueName' => [
                 'SlmQueue\Strategy\SomeStrategy',
