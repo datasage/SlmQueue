@@ -53,8 +53,8 @@ class QueueTest extends TestCase
 
         static::assertInstanceOf($this->jobName, $job);
 
-        $expected = spl_object_hash($this->job);
-        $actual = spl_object_hash($job);
+        $expected = spl_object_id($this->job);
+        $actual = spl_object_id($job);
         static::assertEquals($expected, $actual);
     }
 
@@ -158,8 +158,8 @@ class QueueTest extends TestCase
         $payload = '{"content":"N;","metadata":{"__name__":"SlmQueueTest\\\Asset\\\SimpleJob"}}';
         $job = $this->queue->unserializeJob($payload);
 
-        $expected = spl_object_hash($this->job);
-        $actual = spl_object_hash($job);
+        $expected = spl_object_id($this->job);
+        $actual = spl_object_id($job);
         static::assertEquals($expected, $actual);
     }
 
@@ -173,8 +173,8 @@ class QueueTest extends TestCase
         $payload = '{"content":"N;","metadata":{"__name__":"SimpleJob"}}';
         $job = $this->queue->unserializeJob($payload);
 
-        $expected = spl_object_hash($this->job);
-        $actual = spl_object_hash($job);
+        $expected = spl_object_id($this->job);
+        $actual = spl_object_id($job);
         static::assertEquals($expected, $actual);
     }
 
